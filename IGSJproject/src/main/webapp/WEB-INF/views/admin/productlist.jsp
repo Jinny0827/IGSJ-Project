@@ -12,7 +12,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
+	<jsp:include page="../pageIngredient/header.jsp"></jsp:include>
 
+	<!-- 상품 목록 -->
 	<div class="container" align="center">
 		<div class="listWrap">
 			<div>
@@ -69,47 +71,49 @@
 			</table>
 
 			<!-- 페이징 시작 -->
-			<%
-			PageIngredient pageIngredient = (PageIngredient) request.getAttribute("page");
-
-			int selectedPageNum = (int) request.getAttribute("selectedPageNum");
-
-			/* 이전페이지 버튼만들기 */
-			if (pageIngredient.isPrevPage() == true) {
-			%>
-			<span>
-				<a href="/admin/productlist?pageNum=<%=pageIngredient.getStartPage() - 1%><%=pageIngredient.getSearchTypeAndKeyword()%>">◀이전</a>
-			</span>
-			<%
-			}
-
-			/* 페이지 쫙(1,2,3,4...) 출력하기 */
-			for (int i = pageIngredient.getStartPage(); i <= pageIngredient.getEndPage(); i++) {
-
-			if (selectedPageNum != i) {
-			%>
-			<span>
-				<a id="notSelectedPage" href="/admin/productlist?pageNum=<%=i%><%=pageIngredient.getSearchTypeAndKeyword()%>"><%=i%></a>
-			</span>
-			<%
-			} else if (selectedPageNum == i) {
-			%>
-			<span>
-				<b style="font-size: 22px"><%=i%></b>
-			</span>
-			<%
-			}
-			}
-
-			/* 다음버튼 만들기 */
-			if (pageIngredient.isNextPage() == true) {
-			%>
-			<span>
-				<a href="/admin/productlist?pageNum=<%=pageIngredient.getEndPage() + 1%><%=pageIngredient.getSearchTypeAndKeyword()%>">다음▶</a>
-			</span>
-			<%
-			}
-			%>
+			<div class="paging">
+				<%
+				PageIngredient pageIngredient = (PageIngredient) request.getAttribute("page");
+	
+				int selectedPageNum = (int) request.getAttribute("selectedPageNum");
+	
+				/* 이전페이지 버튼만들기 */
+				if (pageIngredient.isPrevPage() == true) {
+				%>
+				<span>
+					<a href="/admin/productlist?pageNum=<%=pageIngredient.getStartPage() - 1%><%=pageIngredient.getSearchTypeAndKeyword()%>">◀이전</a>
+				</span>
+				<%
+				}
+	
+				/* 페이지 쫙(1,2,3,4...) 출력하기 */
+				for (int i = pageIngredient.getStartPage(); i <= pageIngredient.getEndPage(); i++) {
+	
+				if (selectedPageNum != i) {
+				%>
+				<span>
+					<a id="notSelectedPage" href="/admin/productlist?pageNum=<%=i%><%=pageIngredient.getSearchTypeAndKeyword()%>"><%=i%></a>
+				</span>
+				<%
+				} else if (selectedPageNum == i) {
+				%>
+				<span>
+					<b style="font-size: 22px"><%=i%></b>
+				</span>
+				<%
+				}
+				}
+	
+				/* 다음버튼 만들기 */
+				if (pageIngredient.isNextPage() == true) {
+				%>
+				<span>
+					<a href="/admin/productlist?pageNum=<%=pageIngredient.getEndPage() + 1%><%=pageIngredient.getSearchTypeAndKeyword()%>">다음▶</a>
+				</span>
+				<%
+				}
+				%>
+			</div>
 			<!-- 페이징 끝 -->
 		</div>
 		<!-- 
@@ -118,7 +122,7 @@
 			private String userId; // 제품등록자
 		 -->
 		<!-- 게시글 검색기능 -->
-		<div>
+		<div class="search">
 			<select class="searchType" name="searchType" onchange="changeInputTag()">
 				<option value="userId" <%=pageIngredient.getSearchType().equals("userId") ? "selected" : ""%>>등록자</option>
 				<option value="product_name" <%=pageIngredient.getSearchType().equals("product_name") ? "selected" : ""%>>제품이름</option>

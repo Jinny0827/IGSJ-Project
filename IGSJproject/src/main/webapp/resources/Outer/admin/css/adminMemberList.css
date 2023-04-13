@@ -1,21 +1,158 @@
 @charset "UTF-8";
 
+/*헤더*/
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: 30px;
+	background: black;
+	padding: 20px;
+}
+
+.header_container {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	padding: 0;
+}
+
+.logo span {
+	color: white;
+	font-size: 40px;
+	margin-right: 20px;
+	text-decoration: none;
+}
+
+.login_info p {
+	color: white;
+	font-size: 20px;
+	margin-left: 20px;
+	text-decoration: none;
+}
+
+.menu {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-right: 40px;
+}
+
+.menu ul {
+	list-style: none;
+	padding-left: 30px;
+}
+
+.menu a {
+	text-decoration: none;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+/*회원 목록*/
+.container {
+    padding: 40px;
+}
+
 .listWrap {
-	width: 90%;
-	margin: 0 auto;
+    width: 90%;
+    margin: 0 auto;
 }
 
-th{
-	background: gray;
+.adminTitle {
+    font-size: 30px;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
-th, td {
-	text-align: center;
-	vertical-align: middle;
-	padding: 15px;
-	border-bottom: 1px solid #e9e9e9;
+/*회원목록*/
+.listWrap table {
+    border-top: 3px solid black;
+    border-spacing: 0;
+    width: 100%;
 }
 
-span {
-	margin: 10px;
+.listWrap thead {
+    height: 52px;
+    font-size: 14px;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0;
+    background-color: #f1f1f1;
+}
+
+.listWrap th {
+    border-bottom: 1px solid black;
+}
+
+.listWrap td {
+    height: 40px;
+    border-bottom: 1px solid #ccc;
+    font-size: 13px;
+    vertical-align: middle;
+    font-weight: normal;
+    text-align: center;
+}
+
+.paging {
+	margin-top: 20px;
+}
+
+.paging span{
+	padding: 10px;
+}
+
+.paging b {
+	font-size: 22px;
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 0 15px;
+}
+
+.paging a {
+	text-decoration: none;
+	color: black;
+}
+
+/*게시글 검색기능*/
+.search {
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.searchType {
+	height: 30px;
+	margin-right: 10px;
+}
+
+#searchType {
+	height: 30px;
+}
+
+.search input {
+	height: 25px;
+	width: 300px;
+}
+
+.search button {
+	height: 30px;
+	width: 80px;
+	margin-left: 10px;
+}
+
+a {
+	color: black;
+	cursor: pointer;
+	text-decoration: underline;
+	font-weight: bold;
 }

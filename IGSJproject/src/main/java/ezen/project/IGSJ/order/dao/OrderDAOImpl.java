@@ -57,6 +57,7 @@ public class OrderDAOImpl implements OrderDAO {
 		for (OrderDetailDTO orderDetail : orderDetails) {
 
 			sqlSession.insert(NAME_SPACE + ".payOrderDetail", orderDetail);
+			sqlSession.update(NAME_SPACE+".countProduct",orderDetail);
 		}
 
 		int result3 = sqlSession.insert(NAME_SPACE + ".payPayment", paymentDTO);

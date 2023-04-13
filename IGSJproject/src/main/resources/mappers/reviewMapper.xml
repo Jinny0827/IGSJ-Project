@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.reviewMapper">
+
+	<!-- rvno pno rvContent rvWriter rvRegDate -->
+
+	<!-- 리뷰 목록 불러오기 -->
+	<select id="getReviewList" parameterType="String" resultType="ezen.project.IGSJ.review.dto.ReviewDTO">
+		select *
+		from ReviewDTO
+		where pno = #{pno}
+	</select>
+
+	<!-- 리뷰 작성하기 -->
+	<insert id="writeReview" parameterType="ezen.project.IGSJ.review.dto.ReviewDTO">
+		insert into
+		ReviewDTO (pno, rvContent, rvWriter)
+		values (#{pno},#{rvContent},#{rvWriter})
+	</insert>
+
+	<!-- 리뷰 작성하기 -->
+	<update id="modifyReview" parameterType="ezen.project.IGSJ.review.dto.ReviewDTO">
+		update ReviewDTO
+		set rvContent = #{rvContent}
+		where rvno = #{rvno}
+		and pno = #{pno}
+	</update>
+
+	<!-- 리뷰 삭제하기 -->
+	<delete id="removeReview" parameterType="ezen.project.IGSJ.review.dto.ReviewDTO">
+		delete from ReviewDTO
+		where rvno = #{rvno}
+		and pno = #{pno}
+	</delete>
+
+</mapper>

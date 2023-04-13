@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mappers.sellerMapper">
-
+	
+	<!--  카테고리 불러오기 -->
 	<select id="getCategory" resultType="ezen.project.IGSJ.category.domain.CategoryDTO">
 		select
 		case when category_level is null then 1
@@ -10,7 +11,8 @@
 		END AS big_ctg , cno, category_name, category_level
 		from CategoryDTO;
 	</select>
-
+	
+	<!-- 상품 등록하기 -->
 	<insert id="postRegister" parameterType="ezen.project.IGSJ.product.domain.ProductDTO">
 		insert into ProductDTO( pno, cno, product_name, product_price, product_stock, product_description,userId)
 		values ( #{pno}, #{cno}, #{product_name} ,#{product_price}, #{product_stock}, #{product_description},#{userId})

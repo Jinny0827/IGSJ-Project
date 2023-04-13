@@ -93,46 +93,6 @@ span {
 	color: black;
 }
 
-.registerbtn {
-	margin-top: 20px;
-	text-align: right;
-}
-
-.registerbtn a {
-	border: 1px solid black;
-	padding: 10px 30px;
-	color: black;
-	text-decoration: none;
-	background: #f1f1f1;
-	font-weight: bold;
-}
-
-/*게시글 검색기능*/
-.search {
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-}
-
-.searchType {
-	height: 30px;
-	margin-right: 10px;
-}
-
-#searchType {
-	height: 30px;
-}
-
-.search input {
-	height: 25px;
-	width: 300px;
-}
-
-.search button {
-	height: 30px;
-	width: 80px;
-	margin-left: 10px;
-}
 </style>
 </head>
 <body>
@@ -146,14 +106,12 @@ span {
 			<table>
 				<thead>
 					<tr>
-						<th style="width: fit-content;">제품번호</th>
-						<th style="width: fit-content;">제품이미지</th>
-						<th style="width: fit-content;">제품이름</th>
-						<th style="width: fit-content;">제품가격</th>
-						<th style="width: fit-content;">제품재고</th>
-						<th style="width: fit-content;">제품등록일</th>
-						<th style="width: fit-content;">제품등록자</th>
-						<th style="width: fit-content;">카테고리</th>
+						<th style="width: fit-content;">주문번호</th>
+						<th style="width: fit-content;">주문일자</th>
+						<th style="width: fit-content;">상품번호</th>
+						<th style="width: fit-content;">수량</th>
+						<th style="width: fit-content;">금액</th>
+						<th style="width: fit-content;">배송상태</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -170,29 +128,24 @@ span {
 					
 					adminProductList
 				-->
-					<c:forEach var="sellerProductList" items="${sellerProductList }">
+					<%-- <c:forEach> --%>
 						<tr>
-							<td align="right">${sellerProductList.pno}</td>
-							<td align="right"><img alt="상품 이미지 로딩 실패"
-								src="${sellerProductList.storedFileRootName}" width="100"
-								height="100"></td>
-							<td align="right"><a
-								href="${contextPath}/seller/productDetail?pno=${sellerProductList.pno}">${sellerProductList.product_name}</a>
+							<td align="right"></td>
+							<td align="right">
+								
 							</td>
-							<td align="right">${sellerProductList.product_price}</td>
-							<td align="right">${sellerProductList.product_stock}</td>
-							<td align="right"><fmt:formatDate
-									value="${sellerProductList.product_regDate}"
-									pattern="yyyy.MM.dd hh:mm" /></td>
-							<td align="right">${sellerProductList.userId}</td>
-							<td align="right">${sellerProductList.cno}</td>
+							<td align="right"></td>
+							<td align="right"></td>
+							<td align="right"></td>
+							<td align="right"></td>
+							
 						</tr>
-					</c:forEach>
+					<%-- </c:forEach> --%>
 				</tbody>
 			</table>
 
 			<!-- 페이징 시작 -->
-			<div>
+			<%-- <div>
 				<div class="paging" align="center">
 					<%
 					PageIngredient pageIngredient = (PageIngredient) request.getAttribute("page");
@@ -236,31 +189,10 @@ span {
 					%>
 				</div>
 				<!-- 페이징 끝 -->
-				<div class="registerbtn">
-					<a href="/seller/productRegister">상품등록</a>
-				</div>
-			</div>
+				
+			</div> --%>
 		</div>
-		<!-- 
-			private int cno; // 카테고리 번호
-			private String product_name; // 제품이름
-			private String userId; // 제품등록자
-		 -->
-		<!-- 게시글 검색기능 -->
-		<div class="search">
-			<select class="searchType" name="searchType"
-				onchange="changeInputTag()">
-				<option value="product_name"
-					<%=pageIngredient.getSearchType().equals("product_name") ? "selected" : ""%>>제품이름</option>
-				<option value="cno"
-					<%=pageIngredient.getSearchType().equals("cno") ? "selected" : ""%>>카테고리</option>
-			</select> <input type="text" id="keyword" class="keyword" name="keyword"
-				value="<%=pageIngredient.getKeyword()%>" onkeyup="enterSearching();">
-			<button id="searchingActivate" type="button"
-				onclick="searchingActivate();">검색</button>
-		</div>
-		<!-- 게시글 검색기능 끝 -->
-
+	
 	</div>
 	<script src="/resources/seller/sellerProductList.js"></script>
 </body>

@@ -90,9 +90,11 @@ public class SellerDAOImpl implements SellerDAO{
 	
 	// 판매자 상품 삭제
 	@Override
-	public void sellerRemoveProduct(String pno) throws Exception {
-		sqlSession.delete(Namespace+".sellerRemoveProductFile",pno);
-		sqlSession.delete(Namespace+".sellerRemoveProduct",pno);
+	public int sellerRemoveProduct(String pno) throws Exception {
+		
+			sqlSession.delete(Namespace+".sellerRemoveProductFile",pno);
+		
+		return sqlSession.delete(Namespace+".sellerRemoveProduct",pno);
 	}
 	
 	

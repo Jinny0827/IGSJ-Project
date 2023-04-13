@@ -58,7 +58,7 @@
 
 	<!-- 주문상세내역조회페이지 불러오기 -->
 	<select id="getOrderDetailPage" resultType="ezen.project.IGSJ.order.domain.OrderDTO">
-		SELECT odd.pno, od.orderNum, order_date, storedFileRootName, product_name, product_price, paymentStatus, recipient, recipient_phone, post_address, detail_address, detail_address2, payMoney, paySet
+		SELECT odd.pno, od.orderNum, order_date, storedFileRootName, product_name, product_price, productCnt, paymentStatus, recipient, recipient_phone, post_address, detail_address, detail_address2, payMoney, paySet
 		FROM OrderDTO od
 		INNER join OrderDetailDTO odd
 		on od.orderNum = odd.orderNum
@@ -115,6 +115,12 @@
 		VALUES (#{orderDetailNum}, #{orderNum}, #{pno}, #{productCnt}, #{productPrice}, #{paymentStatus})
 
 	</insert>
+	
+	<update id="countProduct" parameterType="ezen.project.IGSJ.order.domain.OrderDetailDTO">
+		UPDATE ProductDTO 
+		SET product_stock = product_stock - #{productCnt}
+		WHERE pno = #{pno}
+	</update>
 
 	<insert id="payPayment" parameterType="ezen.project.IGSJ.order.domain.PaymentDTO">
 
