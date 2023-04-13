@@ -7,9 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ezen.project.IGSJ.review.dto.ReviewDTO;
@@ -26,70 +28,37 @@ public class ReviewController {
 
 	// 리뷰 목록 불러오기
 	@ResponseBody
-	@RequestMapping
+	@GetMapping("/review/getReviewList/{pno}")
 	public List<ReviewDTO> getReviewList(@PathVariable String pno) throws Exception {
-
 		logger.info("리뷰 목록 불러오기 controller");
-
-		List<ReviewDTO> getReviewList = reviewService.getReviewList(pno);
-
-		return getReviewList;
-
-	}
+		return reviewService.getReviewList(pno);
+	} // getReviewList()
 
 	// 리뷰 작성하기
 	@ResponseBody
-	@RequestMapping
+	@RequestMapping(value = "/review/writeReview", method = RequestMethod.POST)
 	public boolean writeReview(@RequestBody ReviewDTO reviewDTO) throws Exception {
-
 		logger.info("리뷰 작성 시작 controller");
-
 		int writeResult = reviewService.writeReview(reviewDTO);
-
-		if (writeResult == 1) {
-
-			return true;
-		} else {
-
-			return false;
-		}
-
-	}
+		return writeResult == 1 ? true : false;
+	} // writeReview()
 
 	// 리뷰 수정하기
 	@ResponseBody
-	@RequestMapping
+	@RequestMapping(value = "/review/modifyReview", method = RequestMethod.POST)
 	public boolean modifyReview(@RequestBody ReviewDTO reviewDTO) throws Exception {
-
 		logger.info("리뷰 수정 시작 controller");
-
 		int modifyResult = reviewService.modifyReview(reviewDTO);
-
-		if (modifyResult == 1) {
-
-			return true;
-		} else {
-
-			return false;
-		}
-	}
+		return modifyResult == 1 ? true : false;
+	} // modifyReview()
 
 	// 리뷰 삭제하기
 	@ResponseBody
-	@RequestMapping
+	@RequestMapping(value = "/review/removeReview", method = RequestMethod.POST)
 	public boolean removeReview(@RequestBody ReviewDTO reviewDTO) throws Exception {
-
 		logger.info("리뷰 삭제 시작 controller");
-
 		int removeResult = reviewService.removeReview(reviewDTO);
-
-		if (removeResult == 1) {
-
-			return true;
-		} else {
-
-			return false;
-		}
-	}
+		return removeResult == 1 ? true : false;
+	} // removeReview()
 
 }
