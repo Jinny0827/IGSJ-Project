@@ -5,6 +5,8 @@ import java.util.List;
 import ezen.project.IGSJ.category.domain.CategoryDTO;
 import ezen.project.IGSJ.product.domain.ProductDTO;
 import ezen.project.IGSJ.productFile.domain.ProductFileDTO;
+import ezen.project.IGSJ.seller.domain.OrderVO;
+import ezen.project.IGSJ.utils.pagination.PageIngredient;
 
 public interface SellerService {
 	
@@ -28,5 +30,11 @@ public interface SellerService {
 	
 	// 판매자 상품 삭제
 	public int sellerRemoveProduct(String pno) throws Exception;
+	
+	// 판매자 주문 페이지 페이징
+	public int searchOrder(String userId) throws Exception;
+	
+	// 판매자 주문 페이지 불러오기
+	public List<OrderVO> getOrderList(String userId,int displayTotalContent, int pageContent) throws Exception;
 	
 }
