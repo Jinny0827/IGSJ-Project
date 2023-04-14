@@ -17,6 +17,7 @@ public class CartDTO {
 	private String size;
 
 	// 조인용 변수
+	private String storedFileRootName;
 	private String product_name;
 	private int product_price;
 
@@ -86,11 +87,22 @@ public class CartDTO {
 	public void setProduct_price(int product_price) {
 		this.product_price = product_price;
 	}
+	
+
+	public String getStoredFileRootName() {
+		return storedFileRootName;
+	}
+
+	public void setStoredFileRootName(String storedFileRootName) {
+		this.storedFileRootName = storedFileRootName;
+	}
 
 	@Override
 	public String toString() {
-		return "CartDTO [cartNum=" + cartNum + ", userId=" + userId + ", pno=" + pno + ", productCnt=" + productCnt + ", size=" + size
-				+ ", product_name=" + product_name + ", product_price=" + product_price + "]";
+		return "CartDTO [cartNum=" + cartNum + ", userId=" + userId + ", pno=" + pno + ", productCnt=" + productCnt
+				+ ", size=" + size + ", storedFileRootName=" + storedFileRootName + ", product_name=" + product_name
+				+ ", product_price=" + product_price + "]";
 	}
 
+	
 }

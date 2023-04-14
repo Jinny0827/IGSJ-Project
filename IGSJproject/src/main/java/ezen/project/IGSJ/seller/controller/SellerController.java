@@ -34,6 +34,7 @@ import ezen.project.IGSJ.category.domain.CategoryDTO;
 import ezen.project.IGSJ.member.domain.MemberDTO;
 import ezen.project.IGSJ.product.domain.ProductDTO;
 import ezen.project.IGSJ.productFile.domain.ProductFileDTO;
+import ezen.project.IGSJ.seller.domain.OrderVO;
 import ezen.project.IGSJ.seller.service.SellerService;
 import ezen.project.IGSJ.utils.AwsS3;
 import ezen.project.IGSJ.utils.pagination.PageIngredient;
@@ -310,8 +311,25 @@ public class SellerController {
 
 	// 주문배송조회페이지
 	@RequestMapping(value="/orderlist", method= RequestMethod.GET)
-	public void getOrder() throws Exception{
+	public void getOrder( @RequestParam("pageNum") int pageNum, PageIngredient page,
+			Model model, HttpServletRequest request, String userId) throws Exception{
 		
+		// 판매자가 등록한 상품에 대한 정보만 나와야 되기때문에 userId 값을 불러서 넣어준다
+		HttpSession session = request.getSession();
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		userId = member.getUserId();
+		
+		// 파라미터 순서 int contentNum , int maxPageNum, int selectContent
+		page = new PageIngredient(5, 5, 5);
+		page.setPageNum(pageNum);
+		page.setTotalContent(sellerService.searchOrder(userId));
+		
+		List<OrderVO> order = null;
+		 order = sellerService.getOrderList(userId, page.getContentNum(),page.getSelectContent());
+		model.addAttribute("orderList", order);
+		model.addAttribute("page", page);
+		// 현재 페이지가 몇페이지인지 쉽게 구분하기위한 구분자를 넘겨주자
+		model.addAttribute("selectedPageNum", pageNum);
 		
 	}
 }

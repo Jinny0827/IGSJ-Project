@@ -66,12 +66,16 @@ span {
 }
 
 .listWrap td {
-	height: 100%;
+	height: 100px;
 	border-bottom: 1px solid #ccc;
 	font-size: 13px;
 	vertical-align: middle;
 	font-weight: normal;
 	text-align: center;
+}
+.listWrap button{
+	padding: 3px 15px;
+}
 }
 
 .paging {
@@ -109,43 +113,44 @@ span {
 						<th style="width: fit-content;">주문번호</th>
 						<th style="width: fit-content;">주문일자</th>
 						<th style="width: fit-content;">상품번호</th>
-						<th style="width: fit-content;">수량</th>
-						<th style="width: fit-content;">금액</th>
+						<th style="width: fit-content;">주문수량</th>
+						<th style="width: fit-content;">주문가격</th>
+						<th style="width: fit-content;">수령인</th>
+						<th style="width: fit-content;">수령인 핸드폰 번호</th>
 						<th style="width: fit-content;">배송상태</th>
+						<th style="width: fit-content;"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<!-- 
-					private String pno; 					// 제품번호
-					private String storedFileRootName; 		// 상품이미지 경로 - 조인용
-					private int product_price; 				// 제품가격
-					private int product_stock; 				// 제품재고
-					private String product_description; 	// 제품설명
-					private Date product_regDate; 			// 제품등록일자
-					private int cno; 						// 카테고리 번호
-					private String product_name; 			// 제품이름
-					private String userId; 					// 제품등록자
-					
-					adminProductList
-				-->
-					<%-- <c:forEach> --%>
+					<c:forEach var="orderList" items="${orderList }">
 						<tr>
-							<td align="right"></td>
+							<td align="right">${orderList.orderNum}</td>
 							<td align="right">
-								
+								<fmt:formatDate
+									value="${orderList.order_date}"
+									pattern="yyyy.MM.dd hh:mm" />
 							</td>
-							<td align="right"></td>
-							<td align="right"></td>
-							<td align="right"></td>
-							<td align="right"></td>
-							
+							<td align="right">${orderList.pno }</td>
+							<td align="right">${orderList.productCnt }</td>
+							<td align="right">${orderList.productPrice }</td>
+							<td align="right">${orderList.recipient }</td>
+							<td align="right">${orderList.recipient_phone }</td>
+							<td align="right">
+								<select>
+							        <option value="배송 준비" ${orderList.paymentStatus =="배송 준비"?'selected':''}>배송 준비</option>
+							        <option value="배송중" ${orderList.paymentStatus =="배송중"?'selected':''}>배송중</option>
+							        <option value="배송 완료" ${orderList.paymentStatus =="배송 완료"?'selected':''}>배송 완료</option>
+							        
+							    </select>
+							</td>
+							<td align="right"><button>변경</button></td>
 						</tr>
-					<%-- </c:forEach> --%>
+					</c:forEach>
 				</tbody>
 			</table>
 
 			<!-- 페이징 시작 -->
-			<%-- <div>
+			 <div>
 				<div class="paging" align="center">
 					<%
 					PageIngredient pageIngredient = (PageIngredient) request.getAttribute("page");
@@ -156,7 +161,7 @@ span {
 					if (pageIngredient.isPrevPage() == true) {
 					%>
 					<span> <a
-						href="/seller/productlist?pageNum=<%=pageIngredient.getStartPage() - 1%><%=pageIngredient.getSearchTypeAndKeyword()%>">&lt;</a>
+						href="/seller/orderlist?pageNum=<%=pageIngredient.getStartPage() - 1%>">&lt;</a>
 					</span>
 					<%
 					}
@@ -167,7 +172,7 @@ span {
 					if (selectedPageNum != i) {
 					%>
 					<span> <a id="notSelectedPage"
-						href="/seller/productlist?pageNum=<%=i%><%=pageIngredient.getSearchTypeAndKeyword()%>"><%=i%></a>
+						href="/seller/orderlist?pageNum=<%=i%>"><%=i%></a>
 					</span>
 					<%
 					} else if (selectedPageNum == i) {
@@ -182,7 +187,7 @@ span {
 					if (pageIngredient.isNextPage() == true) {
 					%>
 					<span> <a
-						href="/seller/productlist?pageNum=<%=pageIngredient.getEndPage() + 1%><%=pageIngredient.getSearchTypeAndKeyword()%>">&gt;</a>
+						href="/seller/orderlist?pageNum=<%=pageIngredient.getEndPage() + 1%>">&gt;</a>
 					</span>
 					<%
 					}
@@ -190,10 +195,9 @@ span {
 				</div>
 				<!-- 페이징 끝 -->
 				
-			</div> --%>
+			</div> 
 		</div>
 	
 	</div>
-	<script src="/resources/seller/sellerProductList.js"></script>
 </body>
 </html>

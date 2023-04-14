@@ -51,6 +51,7 @@ public class ReviewController {
 		int modifyResult = reviewService.modifyReview(reviewDTO);
 		return modifyResult == 1 ? true : false;
 	} // modifyReview()
+	
 
 	// 리뷰 삭제하기
 	@ResponseBody

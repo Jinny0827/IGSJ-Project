@@ -45,7 +45,7 @@
 
 	<!-- 주문내역조회페이지 불러오기 -->
 	<select id="getOrderListPage" resultType="ezen.project.IGSJ.order.domain.OrderDTO" parameterType="String">
-		SELECT od.orderNum, product_name, storedFileRootName, order_date, product_price, paymentStatus, pdd.pno
+		SELECT od.orderNum, product_name, storedFileRootName, order_date, productCnt, product_price, paymentStatus, pdd.pno
 		FROM OrderDetailDTO odd
 		INNER JOIN OrderDTO od
 		on odd.orderNum = od.orderNum

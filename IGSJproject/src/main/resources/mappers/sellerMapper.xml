@@ -130,6 +130,45 @@
 		where pno = #{pno}
 	</delete>
 	
+	<!--  판매자 총 주문건수 확인 -->
+	<select id="searchOrder" parameterType="String" resultType="int">
+		SELECT COUNT(1)
+		FROM OrderDTO orderdto
+		INNER JOIN OrderDetailDTO detail
+		ON orderdto.orderNum = detail.orderNum
+		JOIN ProductDTO product
+		ON detail.pno = product.pno
+        JOIN PaymentDTO payment
+        ON detail.orderDetailNum = payment.orderDetailNum
+		WHERE product.userId = #{userId}
+	</select>
+	
+	<!-- 판매자 주문 페이지 페이징 -->
+	<select id = "getOrderList" parameterType="hashMap" resultType="ezen.project.IGSJ.seller.domain.OrderVO">
+	select
+
+		orderdto.orderNum,
+		orderdto.order_date,
+		detail.pno,
+		detail.productCnt,
+		detail.productPrice,
+		detail.paymentStatus,
+		orderdto.recipient,
+		orderdto.recipient_phone
+
+		FROM OrderDTO orderdto
+		INNER JOIN OrderDetailDTO detail
+		ON orderdto.orderNum = detail.orderNum
+		JOIN ProductDTO product
+		ON detail.pno = product.pno
+        JOIN PaymentDTO payment
+        ON detail.orderDetailNum = payment.orderDetailNum
+		where product.userId = #{userId} 
+
+		order by orderdto.order_date <!-- 검색결과 가나다순 정리 -->
+		limit #{pageContent} ,#{displayTotalContent}
+	
+	</select>
 	
 
 </mapper>

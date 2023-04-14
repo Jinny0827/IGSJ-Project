@@ -30,10 +30,12 @@
 
 	<!-- 장바구니 목록 -->
 	<select id="cartList" parameterType="String" resultType="ezen.project.IGSJ.cart.domain.CartDTO">
-		SELECT ct.cartNum, ct.userId, ct.pno, CONCAT(prd.product_name, " (", ct.size, ")") product_name, prd.product_price, ct.productCnt
+		SELECT ct.cartNum, ct.userId, ct.pno, CONCAT(prd.product_name, " (", ct.size, ")") product_name, pfd.storedFileRootName, prd.product_price, ct.productCnt
 		FROM CartDTO ct
 		INNER JOIN ProductDTO prd
 		ON ct.pno = prd.pno
+		INNER JOIN ProductFileDTO pfd
+		ON ct.pno = pfd.pno
 		WHERE ct.userId = #{userId};
 	</select>
 
