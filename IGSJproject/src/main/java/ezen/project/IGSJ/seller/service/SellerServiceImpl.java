@@ -2,6 +2,7 @@ package ezen.project.IGSJ.seller.service;
 
 import java.util.List;
 
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -13,7 +14,6 @@ import ezen.project.IGSJ.product.domain.ProductDTO;
 import ezen.project.IGSJ.productFile.domain.ProductFileDTO;
 import ezen.project.IGSJ.seller.dao.SellerDAO;
 import ezen.project.IGSJ.seller.domain.OrderVO;
-import ezen.project.IGSJ.utils.pagination.PageIngredient;
 
 @Service
 public class SellerServiceImpl implements SellerService {
@@ -87,4 +87,10 @@ public class SellerServiceImpl implements SellerService {
 		return sellerDAO.getOrderList(userId, displayTotalContent, pageContent);
 	}
 
+	@Override
+	public int changePaymentStatus(OrderVO order) throws Exception {
+		return sellerDAO.changePaymentStatus(order);
+	}
+	
+	
 }

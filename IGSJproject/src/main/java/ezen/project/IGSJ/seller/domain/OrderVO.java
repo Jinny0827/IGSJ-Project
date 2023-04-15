@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class OrderVO {
 
+	private int odNum; // 주문 생성 번호
 	private String orderNum; // 주문번호
 	private Date order_date; // 주문일자
 	private String pno; // 상품번호
@@ -16,9 +17,10 @@ public class OrderVO {
 	public OrderVO() {
 	}
 
-	public OrderVO(String orderNum, Date order_date, String pno, int productCnt, int productPrice, String paymentStatus,
-			String recipient, String recipient_phone) {
-
+	public OrderVO(int odNum, String orderNum, Date order_date, String pno, int productCnt, int productPrice,
+			String paymentStatus, String recipient, String recipient_phone) {
+		super();
+		this.odNum = odNum;
 		this.orderNum = orderNum;
 		this.order_date = order_date;
 		this.pno = pno;
@@ -27,6 +29,14 @@ public class OrderVO {
 		this.paymentStatus = paymentStatus;
 		this.recipient = recipient;
 		this.recipient_phone = recipient_phone;
+	}
+
+	public int getOdNum() {
+		return odNum;
+	}
+
+	public void setOdNum(int odNum) {
+		this.odNum = odNum;
 	}
 
 	public String getOrderNum() {
@@ -95,9 +105,9 @@ public class OrderVO {
 
 	@Override
 	public String toString() {
-		return "OrderVO [orderNum=" + orderNum + ", order_date=" + order_date + ", pno=" + pno + ", productCnt="
-				+ productCnt + ", productPrice=" + productPrice + ", paymentStatus=" + paymentStatus + ", recipient="
-				+ recipient + ", recipient_phone=" + recipient_phone + "]";
+		return "OrderVO [odNum=" + odNum + ", orderNum=" + orderNum + ", order_date=" + order_date + ", pno=" + pno
+				+ ", productCnt=" + productCnt + ", productPrice=" + productPrice + ", paymentStatus=" + paymentStatus
+				+ ", recipient=" + recipient + ", recipient_phone=" + recipient_phone + "]";
 	}
 
 }

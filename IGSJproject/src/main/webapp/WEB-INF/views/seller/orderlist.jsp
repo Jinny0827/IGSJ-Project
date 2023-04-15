@@ -9,11 +9,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>(seller)상품목록보기</title>
+<title>(seller) 주문배송관리</title>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+</script>
 <!--
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -26,6 +25,10 @@ span {
 
 .container {
 	padding: 40px;
+}
+
+table{
+	margin-bottom: 20px; 
 }
 
 .adminTitle {
@@ -76,13 +79,9 @@ span {
 .listWrap button{
 	padding: 3px 15px;
 }
-}
 
-.paging {
-	margin-top: 20px;
-}
 .paging span{
-	padding: 10px;
+	padding: 15px;
 }
 
 .paging b {
@@ -105,7 +104,7 @@ span {
 	<div class="container" align="center">
 		<div class="listWrap">
 			<div>
-				<p class="adminTitle">상품 목록</p>
+				<p class="adminTitle">주문배송목록</p>
 			</div>
 			<table>
 				<thead>
@@ -118,7 +117,7 @@ span {
 						<th style="width: fit-content;">수령인</th>
 						<th style="width: fit-content;">수령인 핸드폰 번호</th>
 						<th style="width: fit-content;">배송상태</th>
-						<th style="width: fit-content;"></th>
+						<th style="width: fit-content;">관리</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -132,18 +131,17 @@ span {
 							</td>
 							<td align="right">${orderList.pno }</td>
 							<td align="right">${orderList.productCnt }</td>
-							<td align="right">${orderList.productPrice }</td>
+							<td align="right"><fmt:formatNumber value="${orderList.productCnt * orderList.productPrice }" pattern="###,###,###"></fmt:formatNumber></td>
 							<td align="right">${orderList.recipient }</td>
 							<td align="right">${orderList.recipient_phone }</td>
 							<td align="right">
-								<select>
+								<select id="StatusValue-${orderList.odNum}">
 							        <option value="배송 준비" ${orderList.paymentStatus =="배송 준비"?'selected':''}>배송 준비</option>
 							        <option value="배송중" ${orderList.paymentStatus =="배송중"?'selected':''}>배송중</option>
 							        <option value="배송 완료" ${orderList.paymentStatus =="배송 완료"?'selected':''}>배송 완료</option>
-							        
 							    </select>
 							</td>
-							<td align="right"><button>변경</button></td>
+							<td align="right"><button type = "button" onclick = "changePaymentStatus(${orderList.odNum})">변경</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -199,5 +197,6 @@ span {
 		</div>
 	
 	</div>
+		<script src="/resources/Outer/seller/js/orderList.js"></script>
 </body>
 </html>

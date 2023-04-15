@@ -75,10 +75,10 @@ span {
 }
 
 .paging {
-	margin-top: 20px;
+	margin: 20px 0;
 }
 .paging span{
-	padding: 10px;
+	padding:  15px;
 }
 
 .paging b {
@@ -236,9 +236,6 @@ span {
 					%>
 				</div>
 				<!-- 페이징 끝 -->
-				<div class="registerbtn">
-					<a href="/seller/productRegister">상품등록</a>
-				</div>
 			</div>
 		</div>
 		<!-- 

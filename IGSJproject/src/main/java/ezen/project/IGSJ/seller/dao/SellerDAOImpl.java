@@ -1,6 +1,7 @@
 package ezen.project.IGSJ.seller.dao;
 
 import java.util.HashMap;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,10 +14,7 @@ import org.springframework.stereotype.Repository;
 import ezen.project.IGSJ.category.domain.CategoryDTO;
 import ezen.project.IGSJ.product.domain.ProductDTO;
 import ezen.project.IGSJ.productFile.domain.ProductFileDTO;
-import ezen.project.IGSJ.seller.controller.SellerController;
 import ezen.project.IGSJ.seller.domain.OrderVO;
-import ezen.project.IGSJ.seller.service.SellerServiceImpl;
-import ezen.project.IGSJ.utils.pagination.PageIngredient;
 
 @Repository
 public class SellerDAOImpl implements SellerDAO {
@@ -116,4 +114,11 @@ public class SellerDAOImpl implements SellerDAO {
 		return sqlSession.selectList(Namespace + ".getOrderList", orderPageData);
 	}
 
+	@Override
+	public int changePaymentStatus(OrderVO order) throws Exception {
+		return sqlSession.update( Namespace+".changePaymentStatus",order);
+		
+	}
+	
+	
 }

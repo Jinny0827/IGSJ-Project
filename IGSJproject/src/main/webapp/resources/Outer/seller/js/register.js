@@ -16,7 +16,7 @@ $(document).ready(function() {
 
 			// 1차 분류 셀렉트 박스에 삽입할 데이터 준비
 			for (var i = 0; i < jsonData.length; i++) {
-				console.log(jsonData[i]);
+
 				if (jsonData[i].big_ctg == "1") {
 					cate1Obj = new Object(); //초기화
 					cate1Obj.cno = jsonData[i].cno;
@@ -83,8 +83,6 @@ $(document).ready(function() {
 	});
 
 });
-
-// ck에디터
 var myEditor;
 ClassicEditor
 	.create(document.querySelector('#product_description'), {

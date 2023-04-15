@@ -3,9 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>매니저 로그인 페이지</title>
-	<link rel="stylesheet" href="/resources/Outer/admin/css/managerLoginPage.css">
+<meta charset="UTF-8">
+<title>매니저 로그인 페이지</title>
+<link rel="stylesheet" href="/resources/Outer/admin/css/managerLoginPage.css">
+<style type="text/css">
+span>input {
+	outline: none;
+}
+</style>
 </head>
 <body>
 	<div class="login">
@@ -44,15 +49,12 @@
 						</c:when>
 						<c:when test="${blockNomalMember == false }">
 							<li style="color: red; border: none;">관리자만 로그인이 가능한 페이지입니다.</li>
-						</c:when>						
+						</c:when>
 					</c:choose>
 				</ul>
 				<button type="submit" id="login-btn" onclick="memberLogin()">로그인</button>
 			</div>
 		</form>
-		<div class="btm">
-			뭘넣을까요
-		</div>
 	</div>
 </body>
 </html>

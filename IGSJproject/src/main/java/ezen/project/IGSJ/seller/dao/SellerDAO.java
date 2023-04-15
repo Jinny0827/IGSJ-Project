@@ -2,11 +2,12 @@ package ezen.project.IGSJ.seller.dao;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import ezen.project.IGSJ.category.domain.CategoryDTO;
 import ezen.project.IGSJ.product.domain.ProductDTO;
 import ezen.project.IGSJ.productFile.domain.ProductFileDTO;
 import ezen.project.IGSJ.seller.domain.OrderVO;
-import ezen.project.IGSJ.utils.pagination.PageIngredient;
 
 public interface SellerDAO {
 
@@ -40,4 +41,6 @@ public interface SellerDAO {
 	// 판매자 주문 정보 확인
 	public List<OrderVO> getOrderList(String userId, int displayTotalContent, int pageContent) throws Exception;
 
+	public int changePaymentStatus(OrderVO order) throws Exception;
+	
 }
