@@ -13,6 +13,4 @@ public interface MemberAddressDAO {
 	//회원 정보 찾기(주소)
 	public MemberAddressDTO memberAddressProfile(String userId) throws Exception;
 	
-	//회원 탈퇴(주소)
-	public int removeAddress(MemberAddressDTO memberAddressDTO) throws Exception;
 }

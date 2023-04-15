@@ -42,12 +42,5 @@ public class MemberAddressServiceImpl implements MemberAddressService {
 		return memberAddressDAO.memberAddressProfile(userId);
 	}
 	
-	//회원 탈퇴(주소)
-	@Override
-	public int removeAddress(MemberAddressDTO memberAddressDTO) throws Exception {
-		
-		logger.info("회원 탈퇴(주소) removeMember - Service");
-		
-		return memberAddressDAO.removeAddress(memberAddressDTO);
-	}
+
 }

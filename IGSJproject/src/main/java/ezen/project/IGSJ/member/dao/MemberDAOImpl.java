@@ -83,8 +83,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public int removeMember(MemberDTO memberDTO) throws Exception {
 
 		logger.info("회원 탈퇴 removeMember - DAO");
-
+		
+		sqlSession.delete(NAME_SPACE + ".removeAddress", memberDTO);
+		
 		return sqlSession.delete(NAME_SPACE + ".removeMember", memberDTO);
+				
 	}
 
 	// 비밀번호 검증
