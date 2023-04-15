@@ -1,7 +1,6 @@
 package ezen.project.IGSJ.seller.controller;
 
 import java.io.File;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -78,8 +77,8 @@ public class SellerController {
 
 	// aws s3 상품 업로드
 	@RequestMapping(value = "/productRegister", method = RequestMethod.POST)
-	public String postRegister(ProductDTO product, ProductFileDTO productFile,
-			@RequestParam("product_img") MultipartFile file, HttpServletRequest request) throws Exception {
+	public String postRegister(ProductDTO product, ProductFileDTO productFile, @RequestParam("product_img") MultipartFile file,
+			HttpServletRequest request) throws Exception {
 
 		AwsS3 awsS3 = AwsS3.getInstance();
 		String s3ObjectUrl = null;
@@ -116,19 +115,18 @@ public class SellerController {
 	// --------------------------------------------------------------------------
 	@ResponseBody
 	@RequestMapping(value = "/register/ckUpload", method = RequestMethod.POST)
-	public String fileUpload(HttpServletRequest request, HttpServletResponse response,
-			MultipartHttpServletRequest multiFile) throws IOException {
+	public String fileUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest multiFile) throws IOException {
 
 		// Json 객체 생성
 		JsonObject json = new JsonObject();
-		
+
 		// Json 객체를 출력하기 위해 PrintWriter 생성
 		PrintWriter printWriter = null;
 		OutputStream out = null;
-		
+
 		// 파일을 가져오기 위해 MultipartHttpServletRequest 의 getFile 메서드 사용
 		MultipartFile file = multiFile.getFile("upload");
-		
+
 		// S3 서버로 이미지를 보내기 위해 인스턴스 생성
 		AwsS3 awsS3 = AwsS3.getInstance();
 		String uploadPath = null;
@@ -142,8 +140,7 @@ public class SellerController {
 
 					try {
 						// 파일 이름 설정
-						String fileName = "/igsjproject/ckUpload/" + uuid.toString().substring(0, 4)
-								+ file.getOriginalFilename();
+						String fileName = "/igsjproject/ckUpload/" + uuid.toString().substring(0, 4) + file.getOriginalFilename();
 						InputStream is = file.getInputStream();
 
 						// 파일이 실제로 저장되는 경로
@@ -189,8 +186,8 @@ public class SellerController {
 	@RequestMapping(value = "/productlist", method = RequestMethod.GET)
 	public void getProductList(@RequestParam("pageNum") int pageNum,
 			@RequestParam(value = "searchType", required = false, defaultValue = "product_name") String searchType,
-			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword, PageIngredient page,
-			Model model, HttpServletRequest request, String userId) throws Exception {
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword, PageIngredient page, Model model,
+			HttpServletRequest request, String userId) throws Exception {
 
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
@@ -208,8 +205,7 @@ public class SellerController {
 		page.setTotalContent(sellerService.searchProduct(searchType, keyword, userId));
 
 		List<ProductDTO> sellerProductList = null;
-		sellerProductList = sellerService.getProductList(page.getSelectContent(), page.getContentNum(), searchType,
-				keyword, userId);
+		sellerProductList = sellerService.getProductList(page.getSelectContent(), page.getContentNum(), searchType, keyword, userId);
 		model.addAttribute("sellerProductList", sellerProductList);
 		model.addAttribute("page", page);
 		// 현재 페이지가 몇페이지인지 쉽게 구분하기위한 구분자를 넘겨주자
@@ -219,8 +215,7 @@ public class SellerController {
 
 	// 관리자 상품 정보 조회
 	@RequestMapping(value = "/productDetail", method = RequestMethod.GET)
-	public String adminProductViewPage(@RequestParam("pno") String pno, ProductDTO productDTO, Model model)
-			throws Exception {
+	public String adminProductViewPage(@RequestParam("pno") String pno, ProductDTO productDTO, Model model) throws Exception {
 
 		logger.info("관리자 회원 정보 수정 페이지 접속");
 
@@ -233,8 +228,7 @@ public class SellerController {
 
 	// 관리자 상품 정보 수정 페이지 진입
 	@RequestMapping(value = "/productmodify", method = RequestMethod.GET)
-	public String adminProductModifyPage(@RequestParam("pno") String pno, ProductDTO productDTO, Model model)
-			throws Exception {
+	public String adminProductModifyPage(@RequestParam("pno") String pno, ProductDTO productDTO, Model model) throws Exception {
 
 		logger.info("관리자 상품 정보 수정 페이지 접속");
 
@@ -253,8 +247,8 @@ public class SellerController {
 
 	// 관리자 상품 정보 수정
 	@RequestMapping(value = "/productmodify", method = RequestMethod.POST)
-	public String sellerProductModify(ProductDTO productDTO, ProductFileDTO productFile,
-			@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
+	public String sellerProductModify(ProductDTO productDTO, ProductFileDTO productFile, @RequestParam("file") MultipartFile file,
+			HttpServletRequest request) throws Exception {
 
 		logger.info("관리자 상품 정보 수정 시작 controller");
 		AwsS3 awsS3 = AwsS3.getInstance();
@@ -310,39 +304,48 @@ public class SellerController {
 	}
 
 	// 주문배송조회페이지
-	@RequestMapping(value="/orderlist", method= RequestMethod.GET)
-	public void getOrder( @RequestParam("pageNum") int pageNum, PageIngredient page,
-			Model model, HttpServletRequest request, String userId) throws Exception{
-		
+	@RequestMapping(value = "/orderlist", method = RequestMethod.GET)
+	public void getOrder(@RequestParam("pageNum") int pageNum, PageIngredient page, Model model, HttpServletRequest request, String userId)
+			throws Exception {
+
 		// 판매자가 등록한 상품에 대한 정보만 나와야 되기때문에 userId 값을 불러서 넣어준다
 		HttpSession session = request.getSession();
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 		userId = member.getUserId();
-		
+
 		// 파라미터 순서 int contentNum , int maxPageNum, int selectContent
 		page = new PageIngredient(5, 5, 5);
 		page.setPageNum(pageNum);
 		page.setTotalContent(sellerService.searchOrder(userId));
-		
+
 		List<OrderVO> order = null;
-		 order = sellerService.getOrderList(userId, page.getContentNum(),page.getSelectContent());
+		order = sellerService.getOrderList(userId, page.getContentNum(), page.getSelectContent());
 		model.addAttribute("orderList", order);
 		model.addAttribute("page", page);
 		// 현재 페이지가 몇페이지인지 쉽게 구분하기위한 구분자를 넘겨주자
 		model.addAttribute("selectedPageNum", pageNum);
-		
+
 	}
-	
+
 	// 주문 배송상태 변경
 	@ResponseBody
-	@RequestMapping(value="/changePaymentStatus",method=RequestMethod.POST)
-	public int changePaymentStatus(@RequestParam int odNum, @RequestParam String paymentStatus, OrderVO order) throws Exception{
+	@RequestMapping(value = "/changePaymentStatus", method = RequestMethod.POST)
+	public int changePaymentStatus(@RequestParam int odNum, @RequestParam String paymentStatus, OrderVO order) throws Exception {
 		order.setOdNum(odNum);
 		order.setPaymentStatus(paymentStatus);
-		
+
 		return sellerService.changePaymentStatus(order);
 	}
-	
-	
-	
+
+	// 로그아웃 로직
+	@RequestMapping(value = "/manager/managerLogout", method = RequestMethod.GET)
+	public String memberLogout(HttpSession session) throws Exception {
+
+		logger.info("유저 로그아웃, 로그아웃 계정 : {}", session.getAttribute("member").toString());
+
+		session.invalidate();
+
+		return "redirect:/";
+	}
+
 }

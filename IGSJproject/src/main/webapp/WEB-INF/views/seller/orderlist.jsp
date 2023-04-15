@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>(seller)상품목록보기</title>
+<title>(seller) 주문배송관리</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
 </script>
@@ -25,6 +25,10 @@ span {
 
 .container {
 	padding: 40px;
+}
+
+table{
+	margin-bottom: 20px; 
 }
 
 .adminTitle {
@@ -75,13 +79,9 @@ span {
 .listWrap button{
 	padding: 3px 15px;
 }
-}
 
-.paging {
-	margin-top: 20px;
-}
 .paging span{
-	padding: 10px;
+	padding: 15px;
 }
 
 .paging b {
@@ -104,7 +104,7 @@ span {
 	<div class="container" align="center">
 		<div class="listWrap">
 			<div>
-				<p class="adminTitle">상품 목록</p>
+				<p class="adminTitle">주문배송목록</p>
 			</div>
 			<table>
 				<thead>
@@ -117,7 +117,7 @@ span {
 						<th style="width: fit-content;">수령인</th>
 						<th style="width: fit-content;">수령인 핸드폰 번호</th>
 						<th style="width: fit-content;">배송상태</th>
-						<th style="width: fit-content;"></th>
+						<th style="width: fit-content;">관리</th>
 					</tr>
 				</thead>
 				<tbody>

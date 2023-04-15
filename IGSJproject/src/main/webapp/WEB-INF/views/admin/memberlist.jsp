@@ -119,7 +119,7 @@
 			<select class="searchType" name="searchType" onchange="changeInputTag()">
 				<option value="userId" <%=pageIngredient.getSearchType().equals("userId") ? "selected" : ""%>>아이디</option>
 				<option value="userName" <%=pageIngredient.getSearchType().equals("userName") ? "selected" : ""%>>이름</option>
-				<option value="userVerify" <%=pageIngredient.getSearchType().equals("userVerify") ? "selected" : ""%>>회원유형</option>
+				<option value="userVerify" <%=pageIngredient.getSearchType().equals("userVerify") ? "selected" : "selected"%>>회원유형</option>
 			</select>
 			<input type="text" id="keyword" class="keyword" name="keyword" value="<%=pageIngredient.getKeyword()%>" onkeyup="enterSearching();">
 			<button id="searchingActivate" type="button" onclick="searchingActivate();">검색</button>

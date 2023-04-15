@@ -8,7 +8,7 @@ function changeInputTag() {
 	// 만약 option 태그의 값이 'category' (select 태그 = 카테고리)라면 검색창인 input태그를 select 태그로 바꿔버린다.
 	if (opVal == 'userVerify') {
 
-		$(".keyword").replaceWith
+		let replacedType = $(".keyword").replaceWith
 			(
 				"<select id='searchType' name='searchType' onchange='changeCategoryValue();'>"
 				+ "<option value='0' name='keyword'>일반회원</option>"
@@ -16,7 +16,8 @@ function changeInputTag() {
 				+ "<option value='128' name='keyword'>관리자</option>"
 				+ "</select>"
 			);
-
+		
+		
 	} else {
 
 		$("#searchType").replaceWith(
@@ -51,6 +52,7 @@ function searchingActivate() {
 	input태그에 들어간 keyword 값을 쿼리스트링으로 보내 첫페이지를 출력한다. */
 	location.href = "/admin/memberlist?pageNum=1" + "&searchType="
 		+ searchType + "&keyword=" + keyword;
+	
 
 }
 
