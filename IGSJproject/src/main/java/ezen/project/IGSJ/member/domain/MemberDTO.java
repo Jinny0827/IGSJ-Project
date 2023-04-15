@@ -1,6 +1,6 @@
 package ezen.project.IGSJ.member.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class MemberDTO {
 	/*

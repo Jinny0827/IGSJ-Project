@@ -72,10 +72,17 @@
 
 		DELETE FROM MemberDTO
 		WHERE userId = #{userId}
-		AND userPwd = #{userPwd}
 
 	</delete>
 
+	<!-- 회원 탈퇴시 주소 삭제 -->
+	<delete id="removeAddress" parameterType="ezen.project.IGSJ.member.domain.MemberDTO">
+
+		DELETE FROM MemberAddressDTO
+		WHERE userId = #{userId}
+
+	</delete>
+	
 	<!-- 회원 탈퇴에 필요한 비밀번호 찾기 -->
 	<select id="getPwd" parameterType="ezen.project.IGSJ.member.domain.MemberDTO" resultType="String">
 
@@ -84,6 +91,4 @@
 		WHERE userId = #{userId}
 
 	</select>
-
-
 </mapper>
