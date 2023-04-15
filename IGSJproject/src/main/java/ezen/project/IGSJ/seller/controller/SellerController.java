@@ -332,4 +332,17 @@ public class SellerController {
 		model.addAttribute("selectedPageNum", pageNum);
 		
 	}
+	
+	// 주문 배송상태 변경
+	@ResponseBody
+	@RequestMapping(value="/changePaymentStatus",method=RequestMethod.POST)
+	public int changePaymentStatus(@RequestParam int odNum, @RequestParam String paymentStatus, OrderVO order) throws Exception{
+		order.setOdNum(odNum);
+		order.setPaymentStatus(paymentStatus);
+		
+		return sellerService.changePaymentStatus(order);
+	}
+	
+	
+	
 }

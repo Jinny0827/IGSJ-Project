@@ -2,29 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mappers.sellerMapper">
-	
-	<!--  카테고리 불러오기 -->
-	<select id="getCategory" resultType="ezen.project.IGSJ.category.domain.CategoryDTO">
+
+	<!-- 카테고리 불러오기 -->
+	<select id="getCategory"
+		resultType="ezen.project.IGSJ.category.domain.CategoryDTO">
 		select
 		case when category_level is null then 1
-		when cno is not null then 2
+		when cno is
+		not null then 2
 		END AS big_ctg , cno, category_name, category_level
 		from CategoryDTO;
 	</select>
-	
+
 	<!-- 상품 등록하기 -->
-	<insert id="postRegister" parameterType="ezen.project.IGSJ.product.domain.ProductDTO">
-		insert into ProductDTO( pno, cno, product_name, product_price, product_stock, product_description,userId)
-		values ( #{pno}, #{cno}, #{product_name} ,#{product_price}, #{product_stock}, #{product_description},#{userId})
+	<insert id="postRegister"
+		parameterType="ezen.project.IGSJ.product.domain.ProductDTO">
+		insert into ProductDTO( pno, cno, product_name,
+		product_price, product_stock, product_description,userId)
+		values (
+		#{pno}, #{cno}, #{product_name} ,#{product_price}, #{product_stock},
+		#{product_description},#{userId})
 	</insert>
 
-	<insert id="imgRegister" parameterType="ezen.project.IGSJ.productFile.domain.ProductFileDTO">
-		insert into ProductFileDTO(pno,originalFileName,storedFileRootName,storedThumbNailName)
-		values ( #{pno}, #{originalFileName},#{storedFileRootName},#{storedThumbNailName})
+	<insert id="imgRegister"
+		parameterType="ezen.project.IGSJ.productFile.domain.ProductFileDTO">
+		insert into
+		ProductFileDTO(pno,originalFileName,storedFileRootName,storedThumbNailName)
+		values ( #{pno},
+		#{originalFileName},#{storedFileRootName},#{storedThumbNailName})
 	</insert>
-	
+
 	<!-- 판매자 : 전체 상품 불러오기 -->
-	<select id="getProductList" parameterType="hashMap" resultType="ezen.project.IGSJ.product.domain.ProductDTO">
+	<select id="getProductList" parameterType="hashMap"
+		resultType="ezen.project.IGSJ.product.domain.ProductDTO">
 		select
 
 		product.pno,
@@ -40,7 +50,7 @@
 		from ProductDTO as product
 		left outer join ProductFileDTO as pft
 		on product.pno = pft.pno
-		where userId = #{userId} 
+		where userId = #{userId}
 
 
 		<if test="searchType.equals('product_name')">
@@ -56,7 +66,8 @@
 	</select>
 
 	<!-- 검색된 결과에 일치하는 상품 -->
-	<select id="searchProduct" resultType="Int" parameterType="hashmap">
+	<select id="searchProduct" resultType="Int"
+		parameterType="hashmap">
 
 		select count(*)
 		from ProductDTO
@@ -71,81 +82,88 @@
 		</if>
 
 	</select>
-	
+
 	<!-- 판매자 상품 조회 -->
-	<select id="sellerProductViewPage" parameterType="String" resultType="ezen.project.IGSJ.product.domain.ProductDTO">
+	<select id="sellerProductViewPage" parameterType="String"
+		resultType="ezen.project.IGSJ.product.domain.ProductDTO">
 		select
 
-			product.pno,
-			pft.originalFileName,
-			pft.storedFileRootName,
-			pft.storedThumbNailName,
-			cno,
-			product_name,
-			product_price,
-			product_stock,
-			product_description,
-			product_regDate,
-			userId
+		product.pno,
+		pft.originalFileName,
+		pft.storedFileRootName,
+		pft.storedThumbNailName,
+		cno,
+		product_name,
+		product_price,
+		product_stock,
+		product_description,
+		product_regDate,
+		userId
 
 		from ProductDTO as product
 		left outer join ProductFileDTO as pft
-		on product.pno = pft.pno
+		on
+		product.pno = pft.pno
 		where product.pno = #{pno}
-		
+
 	</select>
-	
+
 	<!-- 판매자 상품 수정 -->
-	<update id="sellerProductModify" parameterType="ezen.project.IGSJ.product.domain.ProductDTO">
+	<update id="sellerProductModify"
+		parameterType="ezen.project.IGSJ.product.domain.ProductDTO">
 		update ProductDTO
-			set
-				cno = #{cno},
-				product_name = #{product_name},
-				product_price = #{product_price},
-				product_stock = #{product_stock},
-				product_description = #{product_description}
+		set
+		cno = #{cno},
+		product_name = #{product_name},
+		product_price = #{product_price},
+		product_stock = #{product_stock},
+		product_description = #{product_description}
 		where pno = #{pno}
 	</update>
 	<!-- 이미지 수정 -->
-	<update id="sellerProductFileModify" parameterType="ezen.project.IGSJ.productFile.domain.ProductFileDTO">
+	<update id="sellerProductFileModify"
+		parameterType="ezen.project.IGSJ.productFile.domain.ProductFileDTO">
 		update ProductFileDTO
-			set
-				originalFileName	=	 #{originalFileName},
-				storedFileRootName  =    #{storedFileRootName},
-				storedThumbNailName =    #{storedThumbNailName}
+		set
+		originalFileName = #{originalFileName},
+		storedFileRootName = #{storedFileRootName},
+		storedThumbNailName = #{storedThumbNailName}
 		where pno = #{pno}
 	</update>
-	
+
 	<!-- 판매자 상품 삭제 -->
 	<delete id="sellerRemoveProduct" parameterType="String">
-		delete 
+		delete
 		from ProductDTO
 		where pno = #{pno}
 	</delete>
-	
+
 	<!-- 판매자 상품 이미지 삭제 -->
 	<delete id="sellerRemoveProductFile" parameterType="String">
-		delete 
+		delete
 		from ProductFileDTO
 		where pno = #{pno}
 	</delete>
-	
-	<!--  판매자 총 주문건수 확인 -->
+
+	<!-- 판매자 총 주문건수 확인 -->
 	<select id="searchOrder" parameterType="String" resultType="int">
 		SELECT COUNT(1)
 		FROM OrderDTO orderdto
 		INNER JOIN OrderDetailDTO detail
 		ON orderdto.orderNum = detail.orderNum
 		JOIN ProductDTO product
-		ON detail.pno = product.pno
-        JOIN PaymentDTO payment
-        ON detail.orderDetailNum = payment.orderDetailNum
-		WHERE product.userId = #{userId}
+		ON
+		detail.pno = product.pno
+		JOIN PaymentDTO payment
+		ON detail.orderDetailNum = payment.orderDetailNum
+		WHERE product.userId =
+		#{userId}
 	</select>
-	
+
 	<!-- 판매자 주문 페이지 페이징 -->
-	<select id = "getOrderList" parameterType="hashMap" resultType="ezen.project.IGSJ.seller.domain.OrderVO">
-	select
+	<select id="getOrderList" parameterType="hashMap"
+		resultType="ezen.project.IGSJ.seller.domain.OrderVO">
+		select
 
 		orderdto.orderNum,
 		orderdto.order_date,
@@ -153,22 +171,32 @@
 		detail.productCnt,
 		detail.productPrice,
 		detail.paymentStatus,
+		detail.odNum,
 		orderdto.recipient,
 		orderdto.recipient_phone
 
-		FROM OrderDTO orderdto
+		FROM OrderDTO
+		orderdto
 		INNER JOIN OrderDetailDTO detail
-		ON orderdto.orderNum = detail.orderNum
+		ON orderdto.orderNum =
+		detail.orderNum
 		JOIN ProductDTO product
 		ON detail.pno = product.pno
-        JOIN PaymentDTO payment
-        ON detail.orderDetailNum = payment.orderDetailNum
-		where product.userId = #{userId} 
+		JOIN PaymentDTO payment
+		ON detail.orderDetailNum = payment.orderDetailNum
+		WHERE product.userId =
+		#{userId}
 
-		order by orderdto.order_date <!-- 검색결과 가나다순 정리 -->
-		limit #{pageContent} ,#{displayTotalContent}
-	
+		ORDER BY orderdto.order_date <!-- 검색결과 가나다순 정리 -->
+		LIMIT #{pageContent} ,#{displayTotalContent}
+
 	</select>
-	
+
+	<update id="changePaymentStatus" parameterType="ezen.project.IGSJ.seller.domain.OrderVO">
+		update OrderDetailDTO
+		set paymentStatus = #{paymentStatus}
+		where odNum = #{odNum};
+	</update>
+
 
 </mapper>
